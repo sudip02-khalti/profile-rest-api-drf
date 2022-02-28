@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import *
+from rest_framework import viewsets
 
 
 class TestingView(APIView):
@@ -34,3 +35,42 @@ class TestingView(APIView):
     def delete(self, request, pk=None):
         """DELETE method to delte details"""
         return Response({'messge': 'DETETE method'})
+
+    
+class viewsetclass(viewsets.ViewSet):
+    """viewsets api """
+
+    def list(self, request):
+        return Response({'message': 'This is the viewset list method'})
+
+    
+    def create(self, requet):
+        serializer = ProfileSerializer(data=requet.data)
+        if serializer.is_valid():
+            name = serializer.validated_data.get('name')
+            return f'Hello {name}'
+        
+        else:
+            return Response(serializer.errors, stauts=status.HTTP_400_BAD_REQUEST)
+
+    
+    def retrieve(self, request, pk=None):
+        """Retive teh single element from  the details"""
+
+        return Response({'message': 'PUT method'})
+
+    def update(self, request, pk=None):
+        """Update method to partial update"""
+
+        return Response({'message': 'PATCH method'})
+    
+    def partial_update(self, request, pk=None):
+        """Patch method to partial update"""
+
+        return Response({'message': 'PATCH method'})
+
+    def destroy(self, request, pk=None):
+        """destroy method to delte details"""
+        return Response({'messge': 'DETETE method'})
+
+
