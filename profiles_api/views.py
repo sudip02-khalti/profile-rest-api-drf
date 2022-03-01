@@ -80,7 +80,7 @@ class viewsetclass(viewsets.ViewSet):
 
 
 class UserProfileViewsets(viewsets.ModelViewSet):
-    """Handling and creating and update user profile"""
+    """Handling and creating and update user profile for individual user"""
 
     serializer_class = UserProfileSerializer
     queryset = UserProfile.objects.all()
