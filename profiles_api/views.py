@@ -1,8 +1,12 @@
+from pyexpat import model
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import *
 from rest_framework import viewsets
+from .models import *
+from rest_framework.authentication import TokenAuthentication
+from .permissions import *
 
 
 class TestingView(APIView):
@@ -74,3 +78,11 @@ class viewsetclass(viewsets.ViewSet):
         return Response({'messge': 'DETETE method'})
 
 
+
+class UserProfileViewsets(viewsets.ModelViewSet):
+    """Handling and creating and update user profile"""
+
+    serializer_class = UserProfileSerializer
+    queryset = UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (UpdateOwnProfile,)
